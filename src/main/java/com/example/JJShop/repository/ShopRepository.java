@@ -1,4 +1,8 @@
 package com.example.JJShop.repository;
 
-public interface ShopRepository {
+import com.example.JJShop.model.Item;
+import org.springframework.data.repository.CrudRepository;
+
+public interface ShopRepository extends CrudRepository<Item, Long> {
+
 }
