@@ -52,4 +52,9 @@ public class ShopController {
         return categoryService.updateCategory(category, id);
     }
 
+    @PostMapping("/{id}")
+    public List<Item> getAllCategoryItems(@PathVariable Integer categoryId) {
+        return categoryService.getAllCategoryItems(categoryId);
+    }
+
 }

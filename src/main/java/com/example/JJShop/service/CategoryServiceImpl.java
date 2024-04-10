@@ -1,6 +1,7 @@
 package com.example.JJShop.service;
 
 import com.example.JJShop.model.Category;
+import com.example.JJShop.model.Item;
 import com.example.JJShop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -12,8 +13,8 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
-    public List<Category> getAllCategoryItems(Long id) {
-        return null;
+    public List<Item> getAllCategoryItems(Integer id) {
+        return categoryRepository.findById(id).get().getItemList();
     }
 
     @Override

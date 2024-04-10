@@ -10,14 +10,16 @@ import java.util.Optional;
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;
+
     @Override
-    public Item createItem(Item item)  {
+    public Item createItem(Item item) {
         return itemRepository.save(item);
     }
+
     @Override
     public Item updateItem(Item updatedItem, Long id) {
         Optional<Item> dbItem = itemRepository.findById(id);
-        if (dbItem.isEmpty()){
+        if (dbItem.isEmpty()) {
             return null;
         }
 
@@ -34,6 +36,7 @@ public class ItemServiceImpl implements ItemService {
         Optional<Item> item = itemRepository.findById(id);
         return item.orElse(null);
     }
+
     @Override
     public List<Item> findAllItems() {
         return (List<Item>) itemRepository.findAll();

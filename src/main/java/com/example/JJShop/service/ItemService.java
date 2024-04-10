@@ -7,7 +7,9 @@ import java.util.List;
 public interface ItemService {
 
     Item createItem(Item item);
+
     Item updateItem(Item updatedItem, Long id);
+
     Item getItemById(Long id);
 
     List<Item> findAllItems();
