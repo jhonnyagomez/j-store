@@ -3,10 +3,12 @@ package com.example.JJShop.service;
 import com.example.JJShop.model.Item;
 import com.example.JJShop.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class ItemServiceImpl implements ItemService {
     @Autowired
     private ItemRepository itemRepository;

@@ -4,10 +4,12 @@ import com.example.JJShop.model.Category;
 import com.example.JJShop.model.Item;
 import com.example.JJShop.repository.CategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 
+@Service
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;

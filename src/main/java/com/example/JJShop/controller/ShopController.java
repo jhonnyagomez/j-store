@@ -36,25 +36,25 @@ public class ShopController {
     public List<Item> allItems() {
         return itemService.findAllItems();
     }
-
-    @PostMapping
-    public Category createCategory(@RequestBody Category category) {
-        return categoryService.createCategory(category);
-    }
-
-    @GetMapping("/{id}")
-    public Category getCategoryById(@PathVariable Integer id) {
-        return categoryService.getCategoryById(id);
-    }
-
-    @PostMapping("/{id}")
-    public Category updateCategory(@RequestBody Category category, @PathVariable Integer id) {
-        return categoryService.updateCategory(category, id);
-    }
-
-    @PostMapping("/{id}")
-    public List<Item> getAllCategoryItems(@PathVariable Integer categoryId) {
-        return categoryService.getAllCategoryItems(categoryId);
-    }
+//
+//    @PostMapping
+//    public Category createCategory(@RequestBody Category category) {
+//        return categoryService.createCategory(category);
+//    }
+//
+//    @GetMapping("/{id}")
+//    public Category getCategoryById(@PathVariable Integer id) {
+//        return categoryService.getCategoryById(id);
+//    }
+//
+//    @PostMapping("/{id}")
+//    public Category updateCategory(@RequestBody Category category, @PathVariable Integer id) {
+//        return categoryService.updateCategory(category, id);
+//    }
+//
+//    @PostMapping("/{id}")
+//    public List<Item> getAllCategoryItems(@PathVariable Integer categoryId) {
+//        return categoryService.getAllCategoryItems(categoryId);
+//    }
 
 }
