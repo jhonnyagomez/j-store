@@ -30,14 +30,18 @@ public class CategoryController {
         return categoryService.updateCategory(category, id);
     }
 
-    @GetMapping
-    public List<Category> allCategories() {
-        return categoryService.findAllCategories();
-    }
 
     @GetMapping("/getItems/{categoryId}")
     public List<Item> getAllCategoryItems(@PathVariable Integer categoryId) {
         return categoryService.getAllCategoryItems(categoryId);
+    }
+    @GetMapping
+    public List<Category> allCategories() {
+        return categoryService.findAllCategories();
+    }
+    @PostMapping("delete/{id}")
+    public void deleteCategoryById(@PathVariable Integer id) {
+        categoryService.deleteCategoryById(id);
     }
 
 }
