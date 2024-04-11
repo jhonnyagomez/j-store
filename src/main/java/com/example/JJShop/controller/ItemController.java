@@ -42,7 +42,7 @@ public class ItemController {
         return itemService.updateItem(Item, id);
     }
 
-    @PostMapping("delete/{id}")
+    @GetMapping("delete/{id}")
     public void deleteItemById(@PathVariable Long id) {
         itemService.deleteItemById(id);
     }
