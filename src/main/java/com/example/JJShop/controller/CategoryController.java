@@ -40,4 +40,9 @@ public class CategoryController {
         return categoryService.getAllCategoryItems(categoryId);
     }
 
+    @GetMapping("delete/{id}")
+    public void deleteCategoryById(@PathVariable Integer id) {
+        categoryService.deleteCategoryById(id);
+    }
+
 }
