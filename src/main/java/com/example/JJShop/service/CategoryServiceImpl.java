@@ -15,6 +15,11 @@ public class CategoryServiceImpl implements CategoryService {
     private CategoryRepository categoryRepository;
 
     @Override
+    public List<Category> findAllCategories() {
+        return (List<Category>) categoryRepository.findAll();
+    }
+
+    @Override
     public List<Item> getAllCategoryItems(Integer id) {
         return categoryRepository.findById(id).get().getItemList();
     }
@@ -40,4 +45,5 @@ public class CategoryServiceImpl implements CategoryService {
         Optional<Category> category = categoryRepository.findById(id);
         return category.orElse(null);
     }
+
 }

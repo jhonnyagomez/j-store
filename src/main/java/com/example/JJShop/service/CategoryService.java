@@ -12,5 +12,7 @@ public interface CategoryService {
 
     Category getCategoryById(Integer id);
 
+    List<Category> findAllCategories();
+
     List<Item> getAllCategoryItems(Integer id);
 }

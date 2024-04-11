@@ -1,5 +1,6 @@
 package com.example.JJShop.model;
 
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Data;
@@ -19,5 +20,6 @@ public class Category {
 
     @OneToMany(mappedBy = "category")
     @Column(name = "item_list")
+    @Nullable
     private List<Item> itemList;
 }
