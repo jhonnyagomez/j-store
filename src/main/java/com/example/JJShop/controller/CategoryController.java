@@ -35,7 +35,7 @@ public class CategoryController {
         return categoryService.findAllCategories();
     }
 
-    @GetMapping("/{categoryId}")
+    @GetMapping("/getItems/{categoryId}")
     public List<Item> getAllCategoryItems(@PathVariable Integer categoryId) {
         return categoryService.getAllCategoryItems(categoryId);
     }

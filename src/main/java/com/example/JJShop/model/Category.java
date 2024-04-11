@@ -1,15 +1,20 @@
 package com.example.JJShop.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
@@ -19,7 +24,8 @@ public class Category {
     private String categoryName;
 
     @OneToMany(mappedBy = "category")
-    @Column(name = "item_list")
     @Nullable
+    @JsonManagedReference
     private List<Item> itemList;
+
 }

@@ -1,12 +1,18 @@
 package com.example.JJShop.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,5 +31,7 @@ public class Item {
 
     @ManyToOne
     @JoinColumn(referencedColumnName = "category_id")
+    @JsonBackReference
+    //@JsonIgnore
     private Category category;
 }
