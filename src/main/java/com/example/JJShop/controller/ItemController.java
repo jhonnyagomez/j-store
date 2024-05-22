@@ -5,6 +5,8 @@ import com.example.JJShop.model.Item;
 import com.example.JJShop.service.CategoryService;
 import com.example.JJShop.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,38 +20,45 @@ public class ItemController {
     @Autowired
     private CategoryService categoryService;
 
-
     @PostMapping
-    public Item createItem(@RequestBody Item item) {
+    public ResponseEntity<Item> createItem(@RequestBody Item item) {
         Integer categoryId = item.getCategory().getCategoryId();
         Category category = categoryService.getCategoryById(categoryId);
 
         if (category != null) {
             item.setCategory(category);
-            return itemService.createItem(item);
+            return ResponseEntity
+                    .status(HttpStatus.CREATED)
+                    .body(itemService.createItem(item));
         } else {
             return null;
         }
     }
 
     @GetMapping("/{id}")
-    public Item getItemById(@PathVariable Long id) {
-        return itemService.getItemById(id);
-    }
-
-    @PostMapping("/{id}")
-    public Item updateItem(@RequestBody Item Item, @PathVariable Long id) {
-        return itemService.updateItem(Item, id);
-    }
-
-    @GetMapping("delete/{id}")
-    public void deleteItemById(@PathVariable Long id) {
-        itemService.deleteItemById(id);
+    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
+        return ResponseEntity
+                .ok()
+                .body(itemService.getItemById(id));
     }
 
     @GetMapping
-    public List<Item> allItems() {
-        return itemService.findAllItems();
+    public ResponseEntity<List<Item>> allItems() {
+        return ResponseEntity
+                .ok()
+                .body(itemService.findAllItems());
     }
 
+    @PostMapping("/{id}")
+    public ResponseEntity<Item> updateItem(@RequestBody Item Item, @PathVariable Long id) {
+        return ResponseEntity
+                .ok()
+                .body(itemService.updateItem(Item, id));
+    }
+
+    @GetMapping("delete/{id}")
+    public ResponseEntity<Void> deleteItemById(@PathVariable Long id) {
+        itemService.deleteItemById(id);
+        return ResponseEntity.noContent().build();
+    }
 }
