@@ -28,7 +28,6 @@ public class ItemServiceImpl implements ItemService {
         dbItem.get().setItemName(updatedItem.getItemName());
         dbItem.get().setItemDescription(updatedItem.getItemDescription());
         dbItem.get().setItemPrice(updatedItem.getItemPrice());
-        //TODO Podríamos hacer que el itemAvailable se agregue true o false dependiendo del STOCK, pero no sé si este sea el lugar correcto para hacerlo
         dbItem.get().setIsItemAvailable(updatedItem.getIsItemAvailable());
         dbItem.get().setItemStock(updatedItem.getItemStock());
         dbItem.get().setCategory(updatedItem.getCategory());
