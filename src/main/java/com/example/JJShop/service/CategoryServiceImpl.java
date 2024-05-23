@@ -6,17 +6,18 @@ import com.example.JJShop.model.Category;
 import com.example.JJShop.model.Item;
 import com.example.JJShop.model.enums.ErrorMessages;
 import com.example.JJShop.repository.CategoryRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
-    @Autowired
-    private CategoryRepository categoryRepository;
+    private final CategoryRepository categoryRepository;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public List<Category> findAllCategories() {
@@ -32,8 +33,8 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category createCategory(Category category) {
-        Optional<Category> userFindByCategoryName =categoryRepository.findByCategoryName(category.getCategoryName());
-        if (userFindByCategoryName.isPresent()){
+        Optional<Category> userFindByCategoryName = categoryRepository.findByCategoryName(category.getCategoryName());
+        if (userFindByCategoryName.isPresent()) {
             throw new AlreadyCreatedException(ErrorMessages.CATEGORY_EXISTS.getMessage());
         }
         return categoryRepository.save(category);
@@ -57,7 +58,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(Integer id) {
         Optional<Category> category = categoryRepository.findById(id);
-        if (category.isEmpty()){
+        if (category.isEmpty()) {
             throw new NotFoundException(ErrorMessages.CATEGORY_NOT_FOUND.getMessage());
         }
         return category.get();

@@ -5,6 +5,7 @@ import com.example.JJShop.model.Item;
 import com.example.JJShop.service.CategoryService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.Positive;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +35,7 @@ public class CategoryController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@RequestBody @Valid Category category, @PathVariable @Min(1) Integer id) {
+    public ResponseEntity<Category> updateCategory(@Valid @RequestBody Category category, @PathVariable @Positive Integer id) {
         return ResponseEntity
                 .ok()
                 .body(categoryService.updateCategory(category, id));

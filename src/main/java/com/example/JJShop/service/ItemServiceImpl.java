@@ -12,9 +12,12 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-public class ItemServiceImpl implements ItemService {
-    @Autowired
-    private ItemRepository itemRepository;
+public class ItemServiceImpl implements ItemService  {
+    private final ItemRepository itemRepository;
+
+    public ItemServiceImpl(ItemRepository itemRepository) {
+        this.itemRepository = itemRepository;
+    }
 
     @Override
     public Item createItem(Item item) {
