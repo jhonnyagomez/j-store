@@ -3,7 +3,6 @@ package com.example.JJShop.repository;
 import com.example.JJShop.model.Category;
 import org.springframework.data.repository.CrudRepository;
 
-import javax.crypto.spec.OAEPParameterSpec;
 import java.util.Optional;
 
 public interface CategoryRepository extends CrudRepository <Category, Integer>  {

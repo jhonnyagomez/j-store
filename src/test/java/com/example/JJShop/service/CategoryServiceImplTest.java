@@ -98,7 +98,7 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    public void deleteCategoryByIdTest() {
+    public void givenCategoryIdWhenDeleteCategoryByIdIsCalledShouldCallDeleteById() {
         //Teacher
         Integer id = 1;
         categoryService.deleteCategoryById(id);
