@@ -1,6 +1,9 @@
 package com.example.JJShop.service;
 
+import com.example.JJShop.exceptions.AlreadyCreatedException;
+import com.example.JJShop.exceptions.NotFoundException;
 import com.example.JJShop.model.Item;
+import com.example.JJShop.model.enums.ErrorMessages;
 import com.example.JJShop.repository.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +18,10 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item createItem(Item item) {
+        Optional<Item> itemFindByItemName = itemRepository.findByItemName(item.getItemName());
+        if (itemFindByItemName.isPresent()){
+            throw new AlreadyCreatedException(ErrorMessages.NAME_EXISTS.getMessage());
+        }
         return itemRepository.save(item);
     }
 
@@ -22,7 +29,11 @@ public class ItemServiceImpl implements ItemService {
     public Item updateItem(Item updatedItem, Long id) {
         Optional<Item> dbItem = itemRepository.findById(id);
         if (dbItem.isEmpty()) {
-            return null;
+            throw new NotFoundException(ErrorMessages.NAME_NOT_FOUND.getMessage());
+        }
+        Optional<Item> itemFindByItemName = itemRepository.findByItemNameAndItemIdNot(updatedItem.getItemName(), id);
+        if (itemFindByItemName.isPresent()){
+            throw new AlreadyCreatedException(ErrorMessages.NAME_EXISTS.getMessage());
         }
 
         dbItem.get().setItemName(updatedItem.getItemName());
@@ -37,7 +48,10 @@ public class ItemServiceImpl implements ItemService {
     @Override
     public Item getItemById(Long id) {
         Optional<Item> item = itemRepository.findById(id);
-        return item.orElse(null);
+        if (item.isEmpty()){
+            throw new NotFoundException(ErrorMessages.NAME_NOT_FOUND.getMessage());
+        }
+        return item.get();
     }
 
     @Override
