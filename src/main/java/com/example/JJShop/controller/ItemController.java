@@ -4,6 +4,8 @@ import com.example.JJShop.model.Category;
 import com.example.JJShop.model.Item;
 import com.example.JJShop.service.CategoryService;
 import com.example.JJShop.service.ItemService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +23,7 @@ public class ItemController {
     private CategoryService categoryService;
 
     @PostMapping
-    public ResponseEntity<Item> createItem(@RequestBody Item item) {
+    public ResponseEntity<Item> createItem(@RequestBody @Valid Item item) {
         Integer categoryId = item.getCategory().getCategoryId();
         Category category = categoryService.getCategoryById(categoryId);
 
@@ -36,7 +38,7 @@ public class ItemController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable Long id) {
+    public ResponseEntity<Item> getItemById(@PathVariable @Min(1) Long id) {
         return ResponseEntity
                 .ok()
                 .body(itemService.getItemById(id));
@@ -50,14 +52,14 @@ public class ItemController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Item> updateItem(@RequestBody Item Item, @PathVariable Long id) {
+    public ResponseEntity<Item> updateItem(@RequestBody @Valid Item Item, @PathVariable @Min(1) Long id) {
         return ResponseEntity
                 .ok()
                 .body(itemService.updateItem(Item, id));
     }
 
     @GetMapping("delete/{id}")
-    public ResponseEntity<Void> deleteItemById(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteItemById(@PathVariable @Min(1) Long id) {
         itemService.deleteItemById(id);
         return ResponseEntity.noContent().build();
     }

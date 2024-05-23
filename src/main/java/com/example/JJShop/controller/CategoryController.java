@@ -3,6 +3,8 @@ package com.example.JJShop.controller;
 import com.example.JJShop.model.Category;
 import com.example.JJShop.model.Item;
 import com.example.JJShop.service.CategoryService;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,21 +20,21 @@ public class CategoryController {
     private CategoryService categoryService;
 
     @PostMapping("/create")
-    public ResponseEntity<Category> createCategory(@RequestBody Category category) {
+    public ResponseEntity<Category> createCategory(@RequestBody @Valid Category category) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(categoryService.createCategory(category));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable Integer id) {
+    public ResponseEntity<Category> getCategoryById(@PathVariable @Min(1) Integer id) {
         return ResponseEntity
                 .ok()
                 .body(categoryService.getCategoryById(id));
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Category> updateCategory(@RequestBody Category category, @PathVariable Integer id) {
+    public ResponseEntity<Category> updateCategory(@RequestBody @Valid Category category, @PathVariable @Min(1) Integer id) {
         return ResponseEntity
                 .ok()
                 .body(categoryService.updateCategory(category, id));
@@ -46,7 +48,7 @@ public class CategoryController {
     }
 
     @GetMapping("/getItems/{categoryId}")
-    public ResponseEntity<List<Item>> getAllCategoryItems(@PathVariable Integer categoryId) {
+    public ResponseEntity<List<Item>> getAllCategoryItems(@PathVariable @Min(1) Integer categoryId) {
         return ResponseEntity
                 .ok()
                 .body(categoryService.getAllCategoryItems(categoryId));
@@ -54,7 +56,7 @@ public class CategoryController {
     }
 
     @GetMapping("delete/{id}")
-    public ResponseEntity<Void> deleteCategoryById(@PathVariable Integer id) {
+    public ResponseEntity<Void> deleteCategoryById(@PathVariable @Min(1) Integer id) {
         categoryService.deleteCategoryById(id);
         return ResponseEntity.noContent().build();
     }
