@@ -21,12 +21,27 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<Category> findAllCategories() {
+        List<Category> categories = (List<Category>) categoryRepository.findAll();
+        if (categories.isEmpty()) {
+            throw new NotFoundException(ErrorMessages.CATEGORY_NOT_FOUND.getMessage());
+        }
+        return categories;
 
-        return (List<Category>) categoryRepository.findAll();
     }
 
     @Override
     public List<Item> getAllCategoryItems(Integer id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isEmpty()) {
+            throw new NotFoundException(ErrorMessages.CATEGORY_NOT_FOUND.getMessage());
+        } else {
+            if (category.get().getItemList() != null) {
+                if (category.get().getItemList().isEmpty()) {
+                    throw new NotFoundException(ErrorMessages.NAME_NOT_EXISTS.getMessage());
+                }
+            }
+
+        }
 
         return categoryRepository.findById(id).get().getItemList();
     }
@@ -46,12 +61,12 @@ public class CategoryServiceImpl implements CategoryService {
         if (dbCategory.isEmpty()) {
             throw new NotFoundException(ErrorMessages.CATEGORY_NOT_FOUND.getMessage());
         }
-        Optional<Category> categoryFindByCategoryName = categoryRepository.findByCategoryNameAndCategoryIdNot(updatedCategory.getCategoryName(), id);
-        if (categoryFindByCategoryName.isPresent()){
+        if (dbCategory.get().getCategoryName().equals(updatedCategory.getCategoryName())) {
             throw new AlreadyCreatedException(ErrorMessages.CATEGORY_EXISTS.getMessage());
+        }else {
+            dbCategory.get().setCategoryName(updatedCategory.getCategoryName());
         }
 
-        dbCategory.get().setCategoryName(updatedCategory.getCategoryName());
         return categoryRepository.save(dbCategory.get());
     }
 
@@ -66,7 +81,12 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategoryById(Integer id) {
-        categoryRepository.deleteById(id);
+        Optional<Category> category = categoryRepository.findById(id);
+        if (category.isEmpty()) {
+            throw new NotFoundException(ErrorMessages.CATEGORY_NOT_FOUND.getMessage());
+        } else {
+            categoryRepository.deleteById(id);
+        }
     }
 
 }

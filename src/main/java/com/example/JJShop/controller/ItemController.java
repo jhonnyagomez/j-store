@@ -61,6 +61,7 @@ public class ItemController {
     @GetMapping("delete/{id}")
     public ResponseEntity<Void> deleteItemById(@PathVariable @Min(1) Long id) {
         itemService.deleteItemById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity
+                .noContent().build();
     }
 }
