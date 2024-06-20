@@ -55,4 +55,16 @@ public class CustomExceptionHandler {
                         .build(),
                 HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(AuthenticationFailedException.class)
+    public ResponseEntity<Response> handleAuthenticationFailed(AuthenticationFailedException authenticationFailedException) {
+        return new ResponseEntity<>(
+                Response.builder()
+                        .date(LocalDate.now())
+                        .message(List.of(authenticationFailedException.getMessage()))
+                        .statusCode(HttpStatus.FORBIDDEN.name())
+                        .build(),
+                HttpStatus.FORBIDDEN
+        );
+    }
 }
