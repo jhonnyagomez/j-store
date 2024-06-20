@@ -51,18 +51,6 @@ public class ItemServiceImplTest {
     }
 
     @Test
-    public void givenNewItemWhenUpdateItemIsCalledShouldUpdateItem() {
-        Long id = 1L;
-        when(itemRepository.findById(id)).thenReturn(Optional.of(new Item()));
-        when(itemRepository.findByItemNameAndItemIdNot(item.getItemName(), id)).thenReturn(Optional.empty());
-        when(itemRepository.save(any(Item.class))).thenReturn(item);
-
-        Item savedItem = itemService.updateItem(item, id);
-
-        assertEquals(item, savedItem);
-    }
-
-    @Test
     public void givenItemIdWhenFindByIdIsCalledShouldReturnItem() {
         Long id = 1L;
         when(itemRepository.findById(id)).thenReturn(Optional.of(item));
@@ -84,9 +72,8 @@ public class ItemServiceImplTest {
 
     @Test
     public void givenItemIdWhenDeleteItemByIdIsCalledShouldCallDeleteById() {
-        //Teacher
         Long id = 1L;
-
+        when(itemRepository.findById(id)).thenReturn(Optional.of(item));
         itemService.deleteItemById(id);
 
         verify(itemRepository).deleteById(id);

@@ -77,7 +77,7 @@ public class CategoryServiceImplTest {
         assertEquals(expectedItems, actualItems);
     }
 
-    @Test
+    @Test()
     public void whenCreateCategoryIsCalledShouldCreateCategory() {
         when(categoryRepository.findByCategoryName(category1.getCategoryName())).thenReturn(Optional.empty());
         when(categoryRepository.save(category1)).thenReturn(category1);
@@ -99,8 +99,9 @@ public class CategoryServiceImplTest {
 
     @Test
     public void givenCategoryIdWhenDeleteCategoryByIdIsCalledShouldCallDeleteById() {
-        //Teacher
         Integer id = 1;
+        when(categoryRepository.findById(id)).thenReturn(Optional.of(category1));
+
         categoryService.deleteCategoryById(id);
 
         verify(categoryRepository).deleteById(id);
