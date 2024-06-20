@@ -38,8 +38,8 @@ public class SecurityConfig {
         return http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests((authorize) -> {
-                    authorize.requestMatchers("api/v1/auth/**").permitAll();
-                    //authorize.requestMatchers("/users/**").permitAll();
+                    authorize.requestMatchers("api/v1/auth/login/**").permitAll();
+                    authorize.requestMatchers("api/v1/user/**").permitAll();
                     authorize.anyRequest().authenticated();
                 })
                 .exceptionHandling(httpSecurityExceptionHandlingConfigurer ->
